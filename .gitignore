@@ -1,0 +1,18 @@
+# .gitignore
+
+# Byte-compiled / cache files
+__pycache__/
+*.py[cod]
+
+# Environment variables
+.env
+api.env
+
+# Cache files
+abuse_cache.json
+
+
+# Ignore any temporary files
+*.tmp
+*.swp
+__pycache__/

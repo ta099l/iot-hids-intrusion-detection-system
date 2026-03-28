@@ -1,0 +1,155 @@
+{% extends "base.html" %}
+{% block page_title %}Alerts{% endblock %}
+{% block page_hint %}Search, sort, and investigate detections{% endblock %}
+{% block content %}
+
+<div class="toolbar">
+  <button id="toggleRefresh" class="btn">
+    <span id="refreshDot" class="dot hidden"></span>
+    Auto-Refresh: <span id="refreshText">OFF</span>
+  </button>
+  <span id="refreshStatus" class="toolbarHint"></span>
+</div>
+
+<table id="alertsTable" class="display">
+  <thead>
+    <tr>
+      <th>#</th>
+      <th>Score</th>
+      <th>Direction</th>
+      <th>Source</th>
+      <th>Destination</th>
+      <th>Dst Port</th>
+      <th>State</th>
+      <th>Reason</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    {% for a in alerts %}
+    <tr>
+      <td><a href="/alerts/{{ loop.index0 }}">{{ loop.index0 }}</a></td>
+
+      <td>
+        {% set s = a.score %}
+        <span class="score
+          {% if s >= 70 %} score-critical
+          {% elif s >= 40 %} score-warning
+          {% else %} score-low
+          {% endif %}">
+          {{ s }}
+        </span>
+      </td>
+
+      <td>{{ a.direction }}</td>
+      <td>{{ a.source_ip }}:{{ a.source_port }}</td>
+      <td>{{ a.destination_ip }}:{{ a.destination_port }}</td>
+      <td>{{ a.destination_port }}</td>
+      <td>{{ a.connection_state }}</td>
+
+      <td>
+        {% if a.reasons %}
+        {% set r = a.reasons[0] %}
+        {% if 'CRITICAL' in r %}
+        <span class="badge badge-critical">CRITICAL</span>
+        <span class="reasonText">
+          {{ r.replace('[!!!] CRITICAL:', '').strip() }}
+        </span>
+        {% else %}
+        <span class="reasonText">{{ r }}</span>
+        {% endif %}
+        {% endif %}
+      </td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+
+<script>
+  let autoRefresh = false;
+  let refreshTimer = null;
+
+  function initTable() {
+    if ($.fn.DataTable.isDataTable('#alertsTable')) {
+      $('#alertsTable').DataTable().destroy();
+    }
+    $('#alertsTable').DataTable({ pageLength: 10 });
+  }
+
+  function fetchAndUpdate() {
+    fetch('/api/alerts')
+      .then(r => r.json())
+      .then(alerts => {
+        const tbody = document.querySelector('#alertsTable tbody');
+        tbody.innerHTML = "";
+
+        alerts.forEach((a, idx) => {
+          const s = a.score ?? 0;
+
+          let cls = "score-low";
+          if (s >= 70) cls = "score-critical";
+          else if (s >= 40) cls = "score-warning";
+
+          let reasonHTML = "";
+          if (a.reasons && a.reasons.length) {
+            const r = a.reasons[0];
+            if (r.includes("CRITICAL")) {
+              reasonHTML = `
+                <span class="badge badge-critical">CRITICAL</span>
+                <span class="reasonText">
+                  ${r.replace("[!!!] CRITICAL:", "").trim()}
+                </span>
+              `;
+            } else {
+              reasonHTML = `<span class="reasonText">${r}</span>`;
+            }
+          }
+
+          tbody.innerHTML += `
+            <tr>
+              <td><a href="/alerts/${idx}">${idx}</a></td>
+              <td><span class="score ${cls}">${s}</span></td>
+              <td>${a.direction ?? ""}</td>
+              <td>${a.source_ip ?? ""}:${a.source_port ?? ""}</td>
+              <td>${a.destination_ip ?? ""}:${a.destination_port ?? ""}</td>
+              <td>${a.destination_port ?? ""}</td>
+              <td>${a.connection_state ?? ""}</td>
+              <td>${reasonHTML}</td>
+            </tr>
+          `;
+        });
+
+        initTable();
+        document.getElementById("refreshStatus").textContent =
+          "Updated: " + new Date().toLocaleTimeString();
+      });
+  }
+
+  document.addEventListener("DOMContentLoaded", () => {
+    initTable();
+
+    const btn = document.getElementById("toggleRefresh");
+    const dot = document.getElementById("refreshDot");
+    const text = document.getElementById("refreshText");
+
+    btn.addEventListener("click", () => {
+      autoRefresh = !autoRefresh;
+
+      if (autoRefresh) {
+        text.textContent = "ON";
+        dot.classList.remove("hidden");
+
+        fetchAndUpdate();
+        refreshTimer = setInterval(fetchAndUpdate, 3000);
+      } else {
+        text.textContent = "OFF";
+        dot.classList.add("hidden");
+
+        clearInterval(refreshTimer);
+        refreshTimer = null;
+      }
+    });
+  });
+</script>
+
+{% endblock %}

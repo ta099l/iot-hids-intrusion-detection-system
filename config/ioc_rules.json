@@ -1,0 +1,29 @@
+
+{
+    "ics_port_whitelist": {
+        "502": ["192.168.10.5", "192.168.10.6"],
+        "44818": ["192.168.10.7"]
+    },
+
+    "inbound_src_spoofing": {
+        "53": "DNS Spoofing Source",
+        "80": "HTTP Spoofing Source",
+        "443": "HTTPS Spoofing Source"
+    },
+
+    "outbound_dst_blacklist": {
+        "4444": "Metasploit reverse shell default",
+        "9001": "Tor ORPort (possible malware C2)"
+    },
+
+    "outbound_src_privilege_abuse": {
+        "80": "HTTP Source (Possible Root Abuse)",
+        "443": "HTTPS Source (Possible Root Abuse)"
+    },
+
+    "inbound_dst_high_risk": {
+        "3389": "RDP Unauthorized Access",
+        "5900": "VNC Remote Access",
+        "4444": "Metasploit Default Shell"
+    }
+}

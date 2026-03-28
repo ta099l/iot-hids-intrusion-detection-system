@@ -1,0 +1,58 @@
+[
+    {
+        "timestamp": 1763833777.4871316,
+        "score": 70,
+        "direction": "OUTBOUND",
+        "source_ip": "192.168.100.13",
+        "destination_ip": "185.199.110.133",
+        "protected_device_ip": "192.168.100.13",
+        "source_port": 45704,
+        "destination_port": 443,
+        "connection_state": "NEW",
+        "reasons": [
+            "[!!!] CRITICAL: Cached malicious IP (185.199.110.133) - LOCAL_IOC"
+        ]
+    },
+    {
+        "timestamp": 1763834455.1180744,
+        "score": 70,
+        "direction": "OUTBOUND",
+        "source_ip": "192.168.100.13",
+        "destination_ip": "185.199.110.133",
+        "protected_device_ip": "192.168.100.13",
+        "source_port": 42324,
+        "destination_port": 443,
+        "connection_state": "NEW",
+        "reasons": [
+            "[!!!] CRITICAL: Cached malicious IP (185.199.110.133) - LOCAL_IOC"
+        ]
+    },
+    {
+        "timestamp": 1763834546.3472493,
+        "score": 70,
+        "direction": "OUTBOUND",
+        "source_ip": "192.168.100.13",
+        "destination_ip": "172.66.0.96",
+        "protected_device_ip": "192.168.100.13",
+        "source_port": 60445,
+        "destination_port": 443,
+        "connection_state": "UNKNOWN",
+        "reasons": [
+            "[!!!] CRITICAL: IP matched local IOC blacklist (172.66.0.96)"
+        ]
+    },
+    {
+        "timestamp": 1763834547.1115093,
+        "score": 70,
+        "direction": "INBOUND",
+        "source_ip": "34.107.243.93",
+        "destination_ip": "192.168.100.13",
+        "protected_device_ip": "192.168.100.13",
+        "source_port": 443,
+        "destination_port": 55140,
+        "connection_state": "ESTABLISHED",
+        "reasons": [
+            "[!!!] CRITICAL: IP matched local IOC blacklist (34.107.243.93)"
+        ]
+    }
+]

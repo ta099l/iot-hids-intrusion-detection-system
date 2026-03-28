@@ -1,0 +1,472 @@
+:root {
+  --bg: #0b1220;
+  --panel: rgba(255, 255, 255, 0.06);
+  --panel2: rgba(255, 255, 255, 0.08);
+  --border: rgba(255, 255, 255, 0.10);
+  --text: rgba(255, 255, 255, 0.92);
+  --muted: rgba(255, 255, 255, 0.62);
+
+  --card: #0f172a;
+  --cardBorder: rgba(255, 255, 255, 0.08);
+
+  --accent: #7c3aed;  /* purple */
+  --accent2: #22c55e; /* green */
+  --warn: #f59e0b;    /* amber */
+  --danger: #ef4444;  /* red */
+}
+
+* { box-sizing: border-box; }
+
+html, body { height: 100%; }
+
+body {
+  margin: 0;
+  font-family: "Inter", system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+  background:
+    radial-gradient(1200px 600px at 20% 0%, rgba(124, 58, 237, 0.25), transparent 60%),
+    radial-gradient(900px 500px at 90% 10%, rgba(34, 197, 94, 0.18), transparent 55%),
+    var(--bg);
+  color: var(--text);
+  display: flex;
+
+  /* Typography cleanup (pro) — merged in (was duplicated later) */
+  font-weight: 400;
+  letter-spacing: 0.01em;
+}
+
+/*
+   Sidebar
+ */
+.sidebar {
+  width: 260px;
+  padding: 18px;
+  border-right: 1px solid var(--border);
+  background: rgba(0, 0, 0, 0.18);
+  backdrop-filter: blur(10px);
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px;
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.07), rgba(255, 255, 255, 0.03));
+}
+
+.brandLogo {
+  width: 44px;
+  height: 44px;
+  border-radius: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(124, 58, 237, 0.18);
+  border: 1px solid rgba(124, 58, 237, 0.28);
+  font-size: 20px;
+}
+
+.brandTitle { font-weight: 800; letter-spacing: 0.2px; }
+
+.brandSub {
+  color: var(--muted);
+  font-size: 12px;
+  margin-top: 2px;
+}
+
+.nav { display: flex; flex-direction: column; gap: 8px; }
+
+.navItem {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 12px;
+  border-radius: 14px;
+  text-decoration: none;
+  color: var(--text);
+  border: 1px solid transparent;
+  background: transparent;
+  transition: all .18s ease;
+}
+
+.navItem:hover {
+  background: rgba(255, 255, 255, 0.06);
+  border-color: rgba(255, 255, 255, 0.10);
+  transform: translateY(-1px);
+}
+
+.navIcon {
+  width: 30px;
+  height: 30px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.10);
+}
+
+.sidebarFooter { margin-top: auto; }
+
+.pill {
+  font-size: 12px;
+  color: var(--muted);
+  padding: 10px 12px;
+  border-radius: 999px;
+  border: 1px solid var(--border);
+  background: rgba(255, 255, 255, 0.04);
+}
+
+/*
+   Main
+ */
+.main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.topbar {
+  height: 76px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 18px 26px;
+  border-bottom: 1px solid var(--border);
+  background: rgba(0, 0, 0, 0.10);
+  backdrop-filter: blur(10px);
+}
+
+.pageTitle { font-size: 18px; font-weight: 800; }
+
+.pageHint {
+  margin-top: 2px;
+  font-size: 12px;
+  color: var(--muted);
+}
+
+.topbarRight {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 12px;
+  border-radius: 999px;
+  border: 1px solid var(--border);
+  background: rgba(255, 255, 255, 0.04);
+}
+
+.statusDot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--accent2);
+  box-shadow: 0 0 0 6px rgba(34, 197, 94, 0.15);
+}
+
+.statusText {
+  font-size: 12px;
+  color: var(--muted);
+  font-weight: 600;
+}
+
+.container { padding: 22px 26px; }
+
+/* Panels & Cards */
+.panel,
+.card {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  padding: 16px;
+  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.25);
+}
+
+.cards {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(180px, 1fr));
+  gap: 14px;
+  margin-bottom: 16px;
+}
+
+.label {
+  color: var(--muted);
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.value {
+  font-size: 30px;
+  font-weight: 900;
+  margin-top: 8px;
+  letter-spacing: -0.2px;
+}
+
+/* Buttons */
+.btn {
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  padding: 10px 14px;
+  border-radius: 14px;
+  background: rgba(124, 58, 237, 0.18);
+  color: var(--text);
+  cursor: pointer;
+  font-weight: 800;
+  transition: all .18s ease;
+}
+
+.btn:hover {
+  transform: translateY(-1px);
+  background: rgba(124, 58, 237, 0.26);
+}
+
+/* Score pills (keep your logic) */
+.score {
+  padding: 6px 12px;
+  border-radius: 999px;
+  font-weight: 900;
+  display: inline-block;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+.score-critical {
+  background: rgba(239, 68, 68, 0.18);
+  color: #fecaca;
+  border-color: rgba(239, 68, 68, 0.35);
+}
+
+.score-warning {
+  background: rgba(245, 158, 11, 0.18);
+  color: #fde68a;
+  border-color: rgba(245, 158, 11, 0.35);
+}
+
+.score-low {
+  background: rgba(148, 163, 184, 0.12);
+  color: rgba(255, 255, 255, 0.82);
+  border-color: rgba(148, 163, 184, 0.22);
+}
+
+/*
+   DataTables
+ */
+
+/* Layout polish */
+.dataTables_wrapper { margin-top: 10px; }
+
+.dataTables_wrapper .dataTables_length,
+.dataTables_wrapper .dataTables_filter {
+  margin-bottom: 16px !important;
+}
+
+.dataTables_wrapper .dataTables_length label,
+.dataTables_wrapper .dataTables_filter label {
+  color: var(--muted) !important;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+}
+
+/* Table spacing */
+table.dataTable {
+  border-collapse: separate !important;
+  border-spacing: 0 10px !important;
+  margin-top: 10px !important;
+}
+
+/* Header */
+table.dataTable thead th {
+  color: rgba(255, 255, 255, 0.55) !important; /* final look in your file */
+  font-size: 11px !important;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  border-bottom: none !important;
+}
+
+/* Rows */
+table.dataTable tbody tr {
+  background: rgba(255, 255, 255, 0.04) !important;
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  transition: all 0.18s ease;
+}
+
+table.dataTable tbody tr:hover {
+  background: rgba(124, 58, 237, 0.08) !important;
+  box-shadow: inset 0 0 0 1px rgba(124, 58, 237, 0.35);
+}
+
+/* Cells */
+table.dataTable tbody td {
+  border-top: 1px solid rgba(255, 255, 255, 0.00) !important;
+  border-bottom: none !important;
+  font-size: 14px;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.88);
+}
+
+/* Controls (search + length) */
+.dataTables_wrapper .dataTables_filter input,
+.dataTables_wrapper .dataTables_length select {
+  background: rgba(255, 255, 255, 0.05) !important;
+  border: 1px solid var(--border) !important;
+  color: var(--text) !important;
+  border-radius: 12px !important;
+  padding: 8px 10px !important;
+  outline: none !important;
+  height: 40px !important;
+  line-height: 40px !important;
+}
+
+.dataTables_wrapper .dataTables_filter input { min-width: 260px; }
+
+/* Explicit dropdown visibility fix (kept) */
+.dataTables_length select {
+  background-color: #0f172a !important;
+  color: #ffffff !important;
+  border: 1px solid rgba(255, 255, 255, 0.2) !important;
+}
+
+/* Options visibility */
+.dataTables_length select option {
+  background-color: #0f172a !important;
+  color: #ffffff !important;
+}
+
+/* Focus state (merged: select + input) */
+.dataTables_length select:focus,
+.dataTables_filter input:focus {
+  outline: none !important;
+  box-shadow: 0 0 0 2px rgba(124, 58, 237, 0.4);
+}
+
+/* Info + pagination text */
+.dataTables_wrapper .dataTables_info,
+.dataTables_wrapper .dataTables_paginate {
+  color: var(--muted) !important;
+}
+
+.dataTables_wrapper .dataTables_paginate .paginate_button {
+  border-radius: 12px !important;
+  border: 1px solid var(--border) !important;
+  background: rgba(255, 255, 255, 0.04) !important;
+  color: var(--text) !important;
+}
+
+.dataTables_wrapper .dataTables_paginate .paginate_button.current {
+  background: rgba(124, 58, 237, 0.25) !important;
+  border-color: rgba(124, 58, 237, 0.35) !important;
+}
+
+.dataTables_wrapper .dataTables_paginate .paginate_button:hover {
+  background: rgba(255, 255, 255, 0.06) !important;
+}
+
+/*
+   Toolbar above table
+ */
+.toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 14px 16px;
+  border-radius: 18px;
+  border: 1px solid var(--border);
+  background: rgba(255, 255, 255, 0.05);
+  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.25);
+  margin-bottom: 14px;
+}
+
+.toolbarHint {
+  color: var(--muted);
+  font-size: 12px;
+  font-weight: 700;
+}
+
+/*
+   Links*/
+a {
+  color: rgba(255, 255, 255, 0.82);
+  text-decoration: none;
+  font-weight: 800;
+}
+
+a:hover {
+  color: rgba(255, 255, 255, 0.95);
+  text-decoration: underline;
+}
+
+#alertsTable a { color: rgba(226, 232, 240, 0.90); }
+#alertsTable a:hover { color: #ffffff; }
+
+/* Reason column should be softer */
+.reasonText {
+  font-weight: 500;
+  color: rgba(226, 232, 240, 0.85);
+  line-height: 1.4;
+}
+
+/*
+   Reason severity badge
+ */
+.badge {
+  display: inline-block;
+  padding: 4px 10px;
+  border-radius: 999px;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  margin-right: 8px;
+  vertical-align: middle;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+.badge-critical {
+  background: rgba(239, 68, 68, 0.18);
+  color: #fecaca;
+  border-color: rgba(239, 68, 68, 0.35);
+}
+
+/*
+   Auto-refresh indicator
+ */
+.dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #ef4444;
+  margin-right: 10px;
+  display: inline-block;
+  vertical-align: middle;
+  animation: pulse-red 1.4s infinite;
+}
+
+.hidden { display: none; }
+
+@keyframes pulse-red {
+  0%   { box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.60); }
+  70%  { box-shadow: 0 0 0 10px rgba(239, 68, 68, 0.00); }
+  100% { box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.00); }
+}
+
+/*
+   Responsive
+ */
+@media (max-width: 1100px) {
+  .cards { grid-template-columns: repeat(2, minmax(180px, 1fr)); }
+}
+
+@media (max-width: 860px) {
+  .sidebar { display: none; }
+
+  .container { padding: 18px; }
+
+  .topbar { padding: 14px 18px; }
+
+  /* keep the DataTables input behavior on small screens */
+  .dataTables_wrapper .dataTables_filter input { min-width: 180px; }
+}

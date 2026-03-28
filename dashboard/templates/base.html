@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>IDS Dashboard</title>
+
+  <!-- Font -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="/static/main.css">
+
+  <!-- DataTables -->
+  <link rel="stylesheet" href="https://cdn.datatables.net/1.13.8/css/jquery.dataTables.min.css">
+
+  <!-- JS libs -->
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+  <script src="https://cdn.datatables.net/1.13.8/js/jquery.dataTables.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+
+<body>
+  <aside class="sidebar">
+    <div class="brand">
+      <div class="brandLogo">🛡️</div>
+      <div class="brandText">
+        <div class="brandTitle">IDS</div>
+        <div class="brandSub">Security Dashboard</div>
+      </div>
+    </div>
+
+    <nav class="nav">
+      <a class="navItem" href="/">
+        <span class="navIcon">📊</span>
+        <span>Overview</span>
+      </a>
+      <a class="navItem" href="/alerts">
+        <span class="navIcon">🚨</span>
+        <span>Alerts</span>
+      </a>
+    </nav>
+
+    <div class="sidebarFooter">
+      <div class="pill">FastAPI • DataTables • Chart.js</div>
+    </div>
+  </aside>
+
+  <main class="main">
+    <header class="topbar">
+      <div class="topbarLeft">
+        <div class="pageTitle">{% block page_title %}Dashboard{% endblock %}</div>
+        <div class="pageHint">{% block page_hint %}{% endblock %}</div>
+      </div>
+      <div class="topbarRight">
+        <div class="statusDot"></div>
+        <span class="statusText">Live</span>
+      </div>
+    </header>
+
+    <section class="container">
+      {% block content %}{% endblock %}
+    </section>
+  </main>
+</body>
+
+</html>

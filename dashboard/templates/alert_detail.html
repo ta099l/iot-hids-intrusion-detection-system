@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% block page_title %}Alert Details{% endblock %}
+{% block page_hint %}Explainability and flow context{% endblock %}
+{% block content %}
+<h1>Alert #{{ idx }}</h1>
+
+<div class="panel">
+  <div class="badge">Score: {{ alert.score }}</div>
+  <div class="badge">Direction: {{ alert.direction }}</div>
+  <div class="badge">State: {{ alert.connection_state }}</div>
+</div>
+
+<div class="panel">
+  <h3>Flow</h3>
+  <p><b>{{ alert.source_ip }}:{{ alert.source_port }}</b> → <b>{{ alert.destination_ip }}:{{ alert.destination_port }}</b></p>
+  <p>Protected device: <b>{{ alert.protected_device_ip }}</b></p>
+</div>
+
+<div class="panel">
+  <h3>Explainability (Reasons)</h3>
+  <ul>
+    {% for r in alert.reasons %}
+      <li>{{ r }}</li>
+    {% endfor %}
+  </ul>
+</div>
+
+{% endblock %}
+

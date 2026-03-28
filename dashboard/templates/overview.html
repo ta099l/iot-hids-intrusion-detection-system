@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+{% block page_title %}Overview{% endblock %}
+{% block page_hint %}High-level visibility of alerts and activity{% endblock %}
+{% block content %}
+<h1>Overview</h1>
+
+<div class="cards">
+  <div class="card"><div class="label">Total Alerts</div><div class="value">{{ total }}</div></div>
+  <div class="card"><div class="label">Critical (≥70)</div><div class="value">{{ critical }}</div></div>
+  <div class="card"><div class="label">Inbound</div><div class="value">{{ inbound }}</div></div>
+  <div class="card"><div class="label">Outbound</div><div class="value">{{ outbound }}</div></div>
+</div>
+
+<div class="panel">
+  <h3>Severity Chart</h3>
+
+  <canvas id="sevChart" height="90" data-total="{{ total }}" data-critical="{{ critical }}">
+  </canvas>
+</div>
+
+<script>
+  const canvas = document.getElementById("sevChart");
+
+  const total = Number(canvas.dataset.total || 0);
+  const critical = Number(canvas.dataset.critical || 0);
+  const nonCritical = Math.max(total - critical, 0);
+
+  new Chart(canvas, {
+    type: "bar",
+    data: {
+      labels: ["Critical (≥70)", "Non-critical"],
+      datasets: [{
+        label: "Alerts",
+        data: [critical, nonCritical],
+        borderRadius: 8,
+      }]
+    },
+    options: {
+      plugins: {
+        legend: { display: false }
+      },
+      scales: {
+        y: {
+          beginAtZero: true,
+          ticks: { precision: 0 }
+        }
+      }
+    }
+  });
+</script>
+
+
+{% endblock %}
+
